@@ -1,0 +1,26 @@
+body{
+    background-image: url(https://321web.link/wp-content/uploads/2022/04/pre-ele-768x403.jpg);
+
+    /* https://321web.link/wp-content/uploads/2022/04/pre-ele-768x403.jpg */
+    padding: 50px; /* Espacio alrededor del contenido */
+    background-size: 1650px; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Fija el fondo en su posición */
+}
+  
+h1{
+    font-size:90px;
+    color: white;
+}
+h2{
+    color: white;
+}
+p{
+    color: rgb(21, 20, 20);
+    font-size: x-large;
+}
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
