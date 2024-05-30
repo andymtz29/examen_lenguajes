@@ -2,7 +2,7 @@ class Catalogo {
     #peliculas = [];
 
     agregarPelicula(pelicula) {
-        this.#peliculas.unshift(pelicula);  // Agregar al inicio
+        this.#peliculas.push(pelicula);
         this.mostrarPeliculas();
     }
 
@@ -18,9 +18,10 @@ class Catalogo {
 
     mostrarPeliculas() {
         const contenedor = document.querySelector('.row.row-cols-1.row-cols-md-4.g-4');
-        contenedor.innerHTML = '';  // Vaciar el contenedor
+        contenedor.innerHTML = '';
 
-        this.#peliculas.forEach((pelicula, index) => {
+        for (let index = 0; index < this.#peliculas.length; index++) {
+            const pelicula = this.#peliculas[index];
             const card = `
                 <div class="col" id="pelicula-${index}">
                     <div class="card h-80">
@@ -36,13 +37,14 @@ class Catalogo {
                         </div>
                     </div>
                 </div>`;
-            contenedor.insertAdjacentHTML('afterbegin', card); // Insertar al inicio
-        });
+            contenedor.innerHTML += card;
+        }
     }
 }
 
 const catalogo = new Catalogo();
 
+// Función para agregar una nueva película
 const obtener = () => {
     const titulo = document.querySelector('#titulo').value;
     const genero = document.querySelector('#genero').value;
@@ -50,6 +52,7 @@ const obtener = () => {
     const url = document.querySelector('#myURL').value;
 
     if (!titulo || !genero || !ano || !url) {
+        // Mostrar SweetAlert indicando que algún campo está vacío
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -59,6 +62,7 @@ const obtener = () => {
         const nuevaPelicula = { titulo, genero, ano, url };
         catalogo.agregarPelicula(nuevaPelicula);
         limpiarFormulario();
+        // Mostrar SweetAlert indicando que la película ha sido agregada
         Swal.fire({
             icon: 'success',
             title: '¡Agregado!',
@@ -67,6 +71,7 @@ const obtener = () => {
     }
 };
 
+// Función para actualizar una película existente
 const actualizar = (index) => {
     const titulo = prompt('Nuevo título:');
     const genero = prompt('Nuevo género:');
@@ -81,10 +86,12 @@ const actualizar = (index) => {
     }
 };
 
+// Función para eliminar una película existente
 const eliminar = (index) => {
     catalogo.eliminarPelicula(index);
 };
 
+// Función para limpiar el formulario después de agregar una película
 const limpiarFormulario = () => {
     document.querySelector('#titulo').value = '';
     document.querySelector('#genero').value = '';
@@ -92,4 +99,5 @@ const limpiarFormulario = () => {
     document.querySelector('#myURL').value = '';
 };
 
+// Agregar el evento directamente sin esperar a que el DOM esté listo
 document.querySelector('#agregarPelicula').addEventListener('click', obtener);
